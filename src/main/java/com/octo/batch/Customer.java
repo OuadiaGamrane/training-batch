@@ -68,7 +68,7 @@ public class Customer implements Serializable {
     @Override
     public String toString() {
         return String.format(
-            "#%s, %s born on %3$tb %3$te, %3$tY, finished %4$s transactions",
+            "#%s; %s born on %3$tb %3$te; %3$tY; finished %4$s transactions",
             id,
             name,
             birthday.getTime(),
