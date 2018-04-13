@@ -2,7 +2,7 @@ package com.octo.batch.config;
 
 import java.util.Arrays;
 
-import com.octo.batch.Customer;
+import com.octo.batch.model.Customer;
 import com.octo.batch.processor.BirthdayFilterProcessor;
 import com.octo.batch.processor.TransactionValidatingProcessor;
 import com.octo.batch.reader.CustomerItemReader;
@@ -16,12 +16,10 @@ import org.springframework.batch.core.configuration.annotation.StepBuilderFactor
 import org.springframework.batch.core.configuration.annotation.StepScope;
 import org.springframework.batch.core.explore.JobExplorer;
 import org.springframework.batch.core.launch.JobLauncher;
-import org.springframework.batch.core.step.tasklet.Tasklet;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.batch.item.ItemReader;
 import org.springframework.batch.item.ItemWriter;
 import org.springframework.batch.item.support.CompositeItemProcessor;
-import org.springframework.batch.repeat.RepeatStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

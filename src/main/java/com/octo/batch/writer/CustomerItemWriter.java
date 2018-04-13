@@ -32,7 +32,7 @@ import java.io.PrintWriter;
 import java.util.List;
 import javax.annotation.PreDestroy;
 
-import com.octo.batch.Customer;
+import com.octo.batch.model.Customer;
 import org.springframework.batch.item.ItemWriter;
 
 public class CustomerItemWriter implements ItemWriter<Customer>, Closeable {

@@ -21,7 +21,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package com.octo.batch;
+package com.octo.batch.model;
 
 import java.io.Serializable;
 import java.util.Calendar;

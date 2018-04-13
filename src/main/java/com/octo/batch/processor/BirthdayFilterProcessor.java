@@ -3,7 +3,7 @@ package com.octo.batch.processor;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
-import com.octo.batch.Customer;
+import com.octo.batch.model.Customer;
 import org.springframework.batch.item.ItemProcessor;
 
 public class BirthdayFilterProcessor implements ItemProcessor<Customer, Customer> {

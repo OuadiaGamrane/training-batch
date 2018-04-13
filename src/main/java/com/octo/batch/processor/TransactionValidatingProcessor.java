@@ -1,6 +1,6 @@
 package com.octo.batch.processor;
 
-import com.octo.batch.Customer;
+import com.octo.batch.model.Customer;
 import org.springframework.batch.item.validator.ValidatingItemProcessor;
 import org.springframework.batch.item.validator.ValidationException;
 

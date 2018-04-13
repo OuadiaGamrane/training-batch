@@ -33,6 +33,7 @@ import java.util.LinkedList;
 import java.util.UUID;
 
 import com.octo.batch.config.BatchJobConfig;
+import com.octo.batch.model.Customer;
 import org.springframework.batch.core.configuration.annotation.EnableBatchProcessing;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
