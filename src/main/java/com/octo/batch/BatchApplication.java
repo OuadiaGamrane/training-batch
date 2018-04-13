@@ -21,7 +21,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package com.toptal;
+package com.octo.batch;
 
 import java.beans.XMLEncoder;
 import java.io.FileNotFoundException;
@@ -31,32 +31,30 @@ import java.util.Collection;
 import java.util.GregorianCalendar;
 import java.util.LinkedList;
 import java.util.UUID;
-import lombok.extern.slf4j.Slf4j;
+
+import com.octo.batch.config.BatchJobConfig;
 import org.springframework.batch.core.configuration.annotation.EnableBatchProcessing;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
-/**
- * Entry point of the application.
- *
- * @author Alexey Saenko (alexey.saenko@gmail.com)
- */
-@Slf4j
 @EnableScheduling
 @EnableBatchProcessing
 @SpringBootApplication
-public class BatchApplication {
+public class BatchApplication implements CommandLineRunner{
 
     public static void main(String[] args) {
-        prepareTestData(1000);
         SpringApplication.run(BatchApplication.class, args);
     }
 
-    private static void prepareTestData(final int amount) {
+    @Override
+    public void run(String... strings) throws Exception {
         final int actualYear = new GregorianCalendar().get(Calendar.YEAR);
+
         final Collection<Customer> customers = new LinkedList<>();
-        for (int i = 1; i <= amount; i++) {
+
+        for (int i = 1; i <= 1000; i++) {
             final Calendar birthday = new GregorianCalendar();
             birthday.set(Calendar.YEAR, random(actualYear - 100, actualYear));
             birthday.set(Calendar.DAY_OF_YEAR, random(1, birthday.getActualMaximum(Calendar.DAY_OF_YEAR)));
@@ -67,10 +65,9 @@ public class BatchApplication {
             customer.setTransactions(random(0, 100));
             customers.add(customer);
         }
-        try (final XMLEncoder encoder = new XMLEncoder(new FileOutputStream(CustomerReportJobConfig.XML_FILE))) {
+        try (final XMLEncoder encoder = new XMLEncoder(new FileOutputStream(BatchJobConfig.XML_FILE))) {
             encoder.writeObject(customers);
         } catch (final FileNotFoundException e) {
-            log.error(e.getMessage(), e);
             System.exit(-1);
         }
     }

@@ -21,28 +21,59 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package com.toptal;
+package com.octo.batch;
 
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.batch.item.validator.ValidatingItemProcessor;
-import org.springframework.batch.item.validator.ValidationException;
+import java.io.Serializable;
+import java.util.Calendar;
 
-/**
- * Processor filters customers by the amount of transactions.
- *
- * @author Alexey Saenko (alexey.saenko@gmail.com)
- */
-@Slf4j
-public class TransactionValidatingProcessor extends ValidatingItemProcessor<Customer> {
-    public TransactionValidatingProcessor(final int limit) {
-        super(
-            item -> {
-                if (item.getTransactions() >= limit) {
-                    throw new ValidationException("Customer has more than " + limit + " transactions");
-                }
-                log.info("Customer {} matched the transaction filter", item);
-            }
-        );
-        setFilter(true);
+public class Customer implements Serializable {
+
+    private int id;
+    private String name;
+    private Calendar birthday;
+    private int transactions;
+
+    public int getId() {
+        return id;
     }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Calendar getBirthday() {
+        return birthday;
+    }
+
+    public void setBirthday(Calendar birthday) {
+        this.birthday = birthday;
+    }
+
+    public int getTransactions() {
+        return transactions;
+    }
+
+    public void setTransactions(int transactions) {
+        this.transactions = transactions;
+    }
+
+    @Override
+    public String toString() {
+        return String.format(
+            "#%s, %s born on %3$tb %3$te, %3$tY, finished %4$s transactions",
+            id,
+            name,
+            birthday.getTime(),
+            transactions
+        );
+    }
+
 }

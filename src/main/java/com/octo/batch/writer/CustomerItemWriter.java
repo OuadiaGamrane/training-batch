@@ -21,26 +21,43 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package com.toptal;
+package com.octo.batch.writer;
 
-import java.util.Calendar;
-import java.util.GregorianCalendar;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.batch.item.ItemProcessor;
+import java.io.Closeable;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.io.PrintWriter;
+import java.util.List;
+import javax.annotation.PreDestroy;
 
-/**
- * Processor filters customers by being born in the actual month.
- *
- * @author Alexey Saenko (alexey.saenko@gmail.com)
- */
-@Slf4j
-public class BirthdayFilterProcessor implements ItemProcessor<Customer, Customer> {
-    @Override
-    public Customer process(final Customer item) throws Exception {
-        if (new GregorianCalendar().get(Calendar.MONTH) == item.getBirthday().get(Calendar.MONTH)) {
-            log.info("Customer {} matched the birthday filter", item);
-            return item;
+import com.octo.batch.Customer;
+import org.springframework.batch.item.ItemWriter;
+
+public class CustomerItemWriter implements ItemWriter<Customer>, Closeable {
+    private final PrintWriter writer;
+
+    public CustomerItemWriter() {
+        OutputStream out;
+        try {
+            out = new FileOutputStream("src/main/resources/output.txt");
+        } catch (FileNotFoundException e) {
+            out = System.out;
         }
-        return null;
+        this.writer = new PrintWriter(out);
+    }
+
+    @Override
+    public void write(final List<? extends Customer> items) throws Exception {
+        for (Customer item : items) {
+            writer.println(item.toString());
+        }
+    }
+
+    @PreDestroy
+    @Override
+    public void close() throws IOException {
+        writer.close();
     }
 }
